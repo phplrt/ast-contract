@@ -10,17 +10,13 @@ declare(strict_types=1);
 namespace Phplrt\Contracts\Ast;
 
 /**
- * Interface NodeInterface
+ * Interface VisitableInterface
  */
-interface NodeInterface
+interface VisitableInterface
 {
     /**
-     * @return string
+     * @param VisitorInterface $visitor
+     * @return void
      */
-    public function getName(): string;
-
-    /**
-     * @return int
-     */
-    public function getOffset(): int;
+    public function visit(VisitorInterface $visitor): void;
 }
