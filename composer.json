@@ -30,7 +30,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Phplrt\\Contracts\\Ast\\": ""
+            "Phplrt\\Contracts\\Ast\\": "src/"
         }
     },
     "extra": {
