@@ -10,11 +10,22 @@ declare(strict_types=1);
 namespace Phplrt\Contracts\Ast;
 
 /**
- * Interface VisitorInterface
+ * A visitor base interface.
  */
 interface VisitorInterface
 {
     /**
+     * @param NodeInterface $node
+     * @return NodeInterface
+     */
+    public function before(NodeInterface $node): NodeInterface;
+
+    /**
+     * Called when entering a node.
+     *
+     * Return value semantics:
+     *
+     *
      * @param NodeInterface $node
      * @return mixed
      */
@@ -25,4 +36,10 @@ interface VisitorInterface
      * @return mixed
      */
     public function leave(NodeInterface $node);
+
+    /**
+     * @param NodeInterface $node
+     * @return NodeInterface
+     */
+    public function after(NodeInterface $node): NodeInterface;
 }
