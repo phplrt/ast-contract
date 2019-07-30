@@ -26,10 +26,10 @@ interface ProvidesAttributesInterface
     /**
      * Returns whether an attribute exists.
      *
-     * @param string $key
+     * @param string $name
      * @return bool
      */
-    public function hasAttribute(string $key): bool;
+    public function hasAttribute(string $name): bool;
 
     /**
      * Returns all the attributes of this node.

@@ -24,10 +24,18 @@ interface MutatesAttributesInterface extends ProvidesAttributesInterface
     public function withAttribute(string $name, $value): self;
 
     /**
-     * Replaces all the attributes of this node.
+     * Appends the attributes to this node.
      *
      * @param array $attributes
      * @return MutatesAttributesInterface|$this
      */
     public function withAttributes(array $attributes): self;
+
+    /**
+     * Replaces all the attributes of this node.
+     *
+     * @param array $attributes
+     * @return MutatesAttributesInterface|$this
+     */
+    public function setAttributes(array $attributes): self;
 }
