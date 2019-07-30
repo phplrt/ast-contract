@@ -19,15 +19,15 @@ interface MutatesAttributesInterface extends ProvidesAttributesInterface
      *
      * @param string $name
      * @param mixed $value
-     * @return void
+     * @return MutatesAttributesInterface|$this
      */
-    public function setAttribute(string $name, $value): void;
+    public function withAttribute(string $name, $value): self;
 
     /**
      * Replaces all the attributes of this node.
      *
      * @param array $attributes
-     * @return void
+     * @return MutatesAttributesInterface|$this
      */
-    public function setAttributes(array $attributes): void;
+    public function withAttributes(array $attributes): self;
 }
