@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9c1b65d8149e9fe29cd696f70ecff808",
+    "content-hash": "594a2ddfdbd73120b2023751be1de4d5",
     "packages": [
         {
             "name": "phplrt/source-contracts",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phplrt/source-contracts.git",
-                "reference": "cf668ec26e3d0627ca2d3091ed1272e17ff7276a"
+                "reference": "f9bbdef2ddcbc5b90cee22f67da6fbd5acaee2e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phplrt/source-contracts/zipball/cf668ec26e3d0627ca2d3091ed1272e17ff7276a",
-                "reference": "cf668ec26e3d0627ca2d3091ed1272e17ff7276a",
+                "url": "https://api.github.com/repos/phplrt/source-contracts/zipball/f9bbdef2ddcbc5b90cee22f67da6fbd5acaee2e8",
+                "reference": "f9bbdef2ddcbc5b90cee22f67da6fbd5acaee2e8",
                 "shasum": ""
             },
             "require": {
@@ -60,13 +60,15 @@
                 "reader",
                 "standards"
             ],
-            "time": "2019-07-24T18:35:48+00:00"
+            "time": "2019-07-30T07:06:30+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "phplrt/source-contracts": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
