@@ -6,53 +6,43 @@
 
 A set of interfaces for abstraction over abstract syntax tree.
 
-### AST Interfaces
+The `Phplrt\Contracts\Ast\NodeInterface` is the main interface of AST elements.
+It contains two methods that determine its type (`getType(): int`) and position 
+(`getOffset(): int`) in bytes relative to the start of the source text.
+
+In addition, it contains two implementations of the interfaces. 
+The `Phplrt\Contracts\Ast\ProvidesAttributesInterface` defines a set of 
+additional metadata of the node (attributes), and the 
+`Phplrt\Contracts\Ast\ProvidesChildrenInterface` defines node's descendants.
+
+### Attributes
+
+Attributes are arbitrary user data of an AST node. The values may contain 
+information about the file in which the node is defined, may be its type or 
+any other specific information.
+
+A `NodeInterface` implements the read only immutable interface that does not 
+contain attribute mutation methods.
+
+In the case that your implementation allows to change the attributes of a 
+node, then you need to additionally implement the 
+`Phplrt\Contracts\Ast\MutatesAttributesInterface`, which defines methods for 
+deleting, adding, and changing attributes.
 
 ```php
-namespace Phplrt\Contracts\Ast;
-
-use Phplrt\Contracts\Source\ReadableInterface;
-
-interface NodeInterface extends VisitableInterface, \Countable, \IteratorAggregate, \ArrayAccess
+class ExampleNode implements NodeInterface, MutatesAttributesInterface
 {
-    public function getType(): int;
-    public function getOffset(): int;
-    public function getSource(): ReadableInterface;
+    // ...
 }
 ```
 
-## Visitor Interfaces
+### Child Nodes
+
+The method which should return a set of child nodes is defined by the 
+`Phplrt\Contracts\Ast\ProvidesChildrenInterface` interface.
+
+It is a compatible with `\Traversable` and can be used as an iterator:
 
 ```php
-namespace Phplrt\Contracts\Ast;
-
-interface VisitableInterface
-{
-    public function visit(VisitorInterface $visitor): void;
-}
-
-interface VisitorInterface
-{
-    public function before(NodeInterface $node): NodeInterface;
-    public function enter(NodeInterface $node);
-    public function leave(NodeInterface $node);
-    public function after(NodeInterface $node): NodeInterface;
-}
-```
-
-## Traverser Interface
-
-```php
-namespace Phplrt\Contracts\Ast;
-
-interface TraverserInterface
-{
-    public const DONT_TRAVERSE_CHILDREN = 0x01;
-    public const DONT_TRAVERSE_CURRENT_AND_CHILDREN = 0x02;
-    public const STOP_TRAVERSAL = 0x03;
-    public const REMOVE_NODE = 0x04;
-    
-    public function add(VisitorInterface $visitor): void;
-    public function traverse(NodeInterface $node): NodeInterface;
-}
+foreach ($ast as $child) { ... }
 ```
