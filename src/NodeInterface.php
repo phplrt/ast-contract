@@ -22,7 +22,7 @@ namespace Phplrt\Contracts\Ast;
  * through several stages that the parser\compiler requires, and has a
  * strong impact on the final output of the parser\compiler.
  */
-interface NodeInterface extends ProvidesChildrenInterface, MutatesAttributesInterface
+interface NodeInterface extends ProvidesChildrenInterface, ProvidesAttributesInterface
 {
     /**
      * Returns the type (aka kind) of the node.
