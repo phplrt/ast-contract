@@ -22,19 +22,20 @@ namespace Phplrt\Contracts\Ast;
  * through several stages that the parser\compiler requires, and has a
  * strong impact on the final output of the parser\compiler.
  */
-interface NodeInterface extends ProvidesChildrenInterface, ProvidesAttributesInterface
+interface NodeInterface extends \IteratorAggregate
 {
-    /**
-     * Returns the type (aka kind) of the node.
-     *
-     * @return int
-     */
-    public function getType(): int;
-
     /**
      * Returns offset in bytes the node started in.
      *
      * @return int
      */
     public function getOffset(): int;
+
+    /**
+     * Returns the list of children nodes.
+     *
+     * @see \IteratorAggregate::getIterator()
+     * @return \Traversable|NodeInterface[]
+     */
+    public function getIterator(): \Traversable;
 }
