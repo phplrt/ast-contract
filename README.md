@@ -1,29 +1,48 @@
 <p align="center">
     <a href="https://railt.org"><img src="https://avatars2.githubusercontent.com/u/49816277?s=128" width="128" alt="Phplrt" /></a>
 </p>
-<p align="center">
-    <a href="https://travis-ci.org/phplrt/phplrt"><img src="https://travis-ci.org/phplrt/phplrt.svg?branch=master" alt="Travis CI" /></a>
-    <a href="https://codeclimate.com/github/phplrt/phplrt/test_coverage"><img src="https://api.codeclimate.com/v1/badges/90ee68ef959f72fe7bf6/test_coverage" /></a>
-    <a href="https://codeclimate.com/github/phplrt/phplrt/maintainability"><img src="https://api.codeclimate.com/v1/badges/90ee68ef959f72fe7bf6/maintainability" /></a>
-</p>
-<p align="center">
-    <a href="https://packagist.org/packages/phplrt/phplrt"><img src="https://img.shields.io/badge/PHP-7.1+-ff0140.svg" alt="PHP 7.1+"></a>
-    <a href="https://packagist.org/packages/phplrt/phplrt"><img src="https://poser.pugx.org/phplrt/phplrt/version" alt="Latest Stable Version"></a>
-    <a href="https://packagist.org/packages/phplrt/phplrt"><img src="https://poser.pugx.org/phplrt/phplrt/v/unstable" alt="Latest Stable Version"></a>
-    <a href="https://packagist.org/packages/phplrt/phplrt"><img src="https://poser.pugx.org/phplrt/phplrt/downloads" alt="Total Downloads"></a>
-    <a href="https://raw.githubusercontent.com/phplrt/phplrt/master/LICENSE.md"><img src="https://poser.pugx.org/phplrt/phplrt/license" alt="License MIT"></a>
-</p>
 
-> Please note that this is phplrt `2.0.x-dev` documentation.* 
-> The latest stable version is here: 
-> [https://github.com/phplrt/phplrt/tree/1.1.0](https://github.com/phplrt/phplrt/tree/1.1.0)
+## Abstract Syntax Tree Contracts
 
-## Introduction
+A set of interfaces for abstraction over abstract syntax tree.
 
-The phplrt is a set of tools for programming languages recognition. The library 
-provides lexer, parser, grammar compiler, library for working with errors, 
-text analysis and so on.
+The `Phplrt\Contracts\Ast\NodeInterface` is the main interface of AST elements.
+It contains two methods that determine its type (`getType(): int`) and position 
+(`getOffset(): int`) in bytes relative to the start of the source text.
 
-## Documentation
+In addition, it contains two implementations of the interfaces. 
+The `Phplrt\Contracts\Ast\ProvidesAttributesInterface` defines a set of 
+additional metadata of the node (attributes), and the 
+`Phplrt\Contracts\Ast\ProvidesChildrenInterface` defines node's descendants.
 
-Not yet =)
+### Attributes
+
+Attributes are arbitrary user data of an AST node. The values may contain 
+information about the file in which the node is defined, may be its type or 
+any other specific information.
+
+A `NodeInterface` implements the read only immutable interface that does not 
+contain attribute mutation methods.
+
+In the case that your implementation allows to change the attributes of a 
+node, then you need to additionally implement the 
+`Phplrt\Contracts\Ast\MutatesAttributesInterface`, which defines methods for 
+deleting, adding, and changing attributes.
+
+```php
+class ExampleNode implements NodeInterface, MutatesAttributesInterface
+{
+    // ...
+}
+```
+
+### Child Nodes
+
+The method which should return a set of child nodes is defined by the 
+`Phplrt\Contracts\Ast\ProvidesChildrenInterface` interface.
+
+It is a compatible with `\Traversable` and can be used as an iterator:
+
+```php
+foreach ($ast as $child) { ... }
+```
